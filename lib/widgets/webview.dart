@@ -3,12 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+const CATCH_URLS = ['m.ctrip.com','m.ctrip.com/html5/','m.ctrip.com/html5','https://m.ctrip.com/webapp'];
+
 class WebView extends StatefulWidget {
   final String url;
   final String statusBarColor;
   final String title;
   final bool hideAppBar;
-  final bool backForbid;
+  final bool backForbid; // 禁止返回
+
+
 
   WebView(
       {Key key,
@@ -16,7 +20,7 @@ class WebView extends StatefulWidget {
       this.statusBarColor,
       this.title,
       this.hideAppBar,
-      this.backForbid});
+      this.backForbid = false});
 
   @override
   _WebViewState createState() => _WebViewState();
@@ -27,6 +31,8 @@ class _WebViewState extends State<WebView> {
 
   StreamSubscription<String> _onUrlChangeListener;
   StreamSubscription<WebViewStateChanged> _onStateChangeListener;
+
+  bool exiting = false;
 
   @override
   void initState() {
@@ -39,11 +45,31 @@ class _WebViewState extends State<WebView> {
         flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       switch (state.type) {
         case WebViewState.startLoad:
+          if(_isToMain(state.url) && !exiting) {
+            if(widget.backForbid) {
+              flutterWebviewPlugin.launch(widget.url);
+            } else {
+              Navigator.pop(context);
+              exiting = true;
+            }
+          }
           break;
         default:
           break;
       }
     });
+  }
+
+  _isToMain(String url){
+    bool contain = false;
+    for(final value in CATCH_URLS) {
+      if(url?.endsWith(value)??false) {
+        contain = true;
+        break;
+      }
+    }
+
+    return contain;
   }
 
   @override
@@ -69,9 +95,18 @@ class _WebViewState extends State<WebView> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          _appBar(Color(int.parse('0xff'+statusBarColor)), backButtonColor), // 将字符串转成颜色
+          _appBar(Color(int.parse('0xff'+statusBarColor)), backButtonColor), // 将字符串颜色转成16进制颜色
           Expanded(
-            child: WebviewScaffold(url: null),
+            child: WebviewScaffold(url: widget.url,
+            withZoom: true,
+              hidden: true,
+              initialChild: Container(
+                color: Colors.redAccent,
+                child: Center(
+                  child: Text('Waiting'),
+                ),
+              ),
+            ),
           )
         ],
       ),
