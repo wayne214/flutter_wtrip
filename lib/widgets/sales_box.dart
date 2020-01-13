@@ -119,7 +119,7 @@ class SalesBox extends StatelessWidget {
           child: Image.network(
             model.icon,
             fit: BoxFit.fill,
-            width: MediaQuery.of(context).size.width / 2- 10,
+            width: MediaQuery.of(context).size.width / 2- 10, // 获取设备宽度
             height: big ? 129 : 80,
           ),
         ));
