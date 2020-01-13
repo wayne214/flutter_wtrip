@@ -107,7 +107,6 @@ class _SearchBarState extends State<SearchBar> {
           borderRadius: BorderRadius.circular(
               widget.searchBarType == SearchBarType.normal ? 5 : 15)),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Icon(
             Icons.search,
@@ -133,6 +132,7 @@ class _SearchBarState extends State<SearchBar> {
                       border: InputBorder.none,
                       hintText: widget.hint ?? "",
                       hintStyle: TextStyle(fontSize: 15),
+                      isDense: true,
                     ),
                   )
                 : _wrapTap(
@@ -148,7 +148,7 @@ class _SearchBarState extends State<SearchBar> {
               ? _wrapTap(
                   Icon(
                     Icons.mic,
-                    size: 22,
+                    size: 20,
                     color: widget.searchBarType == SearchBarType.normal
                         ? Colors.blue
                         : Colors.grey,
@@ -157,7 +157,7 @@ class _SearchBarState extends State<SearchBar> {
               : _wrapTap(
                   Icon(
                     Icons.close,
-                    size: 22,
+                    size: 20,
                     color: Colors.grey,
                   ), () {
                   setState(() {
