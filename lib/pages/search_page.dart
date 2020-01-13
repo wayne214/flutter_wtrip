@@ -11,7 +11,9 @@ class _SearchPageState extends State<SearchPage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+
+      ),
       body: Column(
         children: <Widget>[
           SearchBar(
