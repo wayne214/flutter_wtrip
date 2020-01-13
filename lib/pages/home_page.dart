@@ -64,6 +64,8 @@ class _HomePageState extends State<HomePage> {
         bannerList = model.bannerList;
         isLoading = false;
       });
+
+      print(model.config.searchUrl);
     } catch (e) {
       print(e);
       setState(() {
