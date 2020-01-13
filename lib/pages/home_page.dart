@@ -6,8 +6,11 @@ import 'package:flutter_wtrip/model/gridNav_model.dart';
 import 'dart:convert';
 
 import 'package:flutter_wtrip/model/home_model.dart';
+import 'package:flutter_wtrip/model/sales_box_model.dart';
 import 'package:flutter_wtrip/widgets/grid_nav.dart';
 import 'package:flutter_wtrip/widgets/local_nav.dart';
+import 'package:flutter_wtrip/widgets/sales_box.dart';
+import 'package:flutter_wtrip/widgets/sub_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -28,8 +31,10 @@ class _HomePageState extends State<HomePage> {
   String resultString = '';
 
   List<CommonModel> localNavList = [];
+  List<CommonModel> subNavList = [];
 
   GridNavModel gridNavModel;
+  SalesBoxModel salesBoxModel;
 
   @override
   void initState() {
@@ -52,6 +57,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         localNavList = model.localNavList;
         gridNavModel = model.gridNav;
+        subNavList = model.subNavList;
+        salesBoxModel = model.salesBox;
       });
     } catch (e) {
       print(e);
@@ -119,12 +126,24 @@ class _HomePageState extends State<HomePage> {
                         ),
                         padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
                       ),
-                      Container(
-                        height: 800,
-                        child: ListTile(
-                          title: Text(resultString),
+                      Padding(
+                        child: SubNav(
+                          subNavList: subNavList,
                         ),
-                      )
+                        padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                      ),
+                      Padding(
+                        child: SalesBox(
+                          salesBox: salesBoxModel,
+                        ),
+                        padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                      ),
+//                      Container(
+//                        height: 800,
+//                        child: ListTile(
+//                          title: Text(resultString),
+//                        ),
+//                      )
                     ],
                   ),
                 )),
