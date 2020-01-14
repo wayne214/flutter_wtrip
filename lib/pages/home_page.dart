@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:flutter_wtrip/model/home_model.dart';
 import 'package:flutter_wtrip/model/sales_box_model.dart';
+import 'package:flutter_wtrip/pages/search_page.dart';
 import 'package:flutter_wtrip/widgets/grid_nav.dart';
 import 'package:flutter_wtrip/widgets/loading_container.dart';
 import 'package:flutter_wtrip/widgets/local_nav.dart';
@@ -44,7 +45,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<Null> _handleRefresh() async {
-    print('调用了吗');
 //    HomeDao.fetch().then((result){
 //      setState(() {
 //        resultString = json.encode(result);
@@ -88,14 +88,18 @@ class _HomePageState extends State<HomePage> {
       appBarAlpha = alpha;
     });
   }
+
   // 跳转搜索页面
   _jumpToSearch() {
-
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SearchPage(hint: SEARCH_BAR_DEFAULT_TEXT))
+    );
   }
+
   // 跳转语音页面
-  _jumpToSpeak(){
-
-  }
+  _jumpToSpeak() {}
 
   @override
   Widget build(BuildContext context) {
@@ -129,13 +133,16 @@ class _HomePageState extends State<HomePage> {
           )),
     );
   }
+
   // 顶部搜索框
   Widget get _appBar {
     return Column(
       children: <Widget>[
         Container(
+          // 装饰器
           decoration: BoxDecoration(
-              gradient: LinearGradient(
+              // 线性渐变
+            gradient: LinearGradient(
             colors: [Color(0x66000000), Colors.transparent],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -158,10 +165,9 @@ class _HomePageState extends State<HomePage> {
         ),
         // 底部阴影
         Container(
-          height: appBarAlpha > 0.2 ? 0.5: 0,
+          height: appBarAlpha > 0.2 ? 0.5 : 0,
           decoration: BoxDecoration(
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]
-          ),
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]),
         )
       ],
     );
@@ -174,7 +180,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: bannerList.length,
         autoplay: true, // 自动播放
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
+          return GestureDetector( // 点击事件
             onTap: () {
               Navigator.push(
                   context,

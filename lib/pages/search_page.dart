@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wtrip/dao/search_dao.dart';
 import 'package:flutter_wtrip/model/search_model.dart';
 import 'package:flutter_wtrip/widgets/search_bar.dart';
+import 'package:flutter_wtrip/widgets/webview.dart';
 
 const URL =
     'https://m.ctrip.com/restapi/h5api/searchapp/search?source=mobileweb&action=autocomplete&contentType=json&keyword=';
@@ -37,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Expanded(
                   flex: 1,
                   child: ListView.builder(
-                      itemCount: searchModel?.data?.length??0,
+                      itemCount: searchModel?.data?.length ?? 0,
                       itemBuilder: (BuildContext context, int position) {
                         return _item(position);
                       })))
@@ -46,10 +47,84 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  // 搜索结果item
   _item(int pos) {
     if (searchModel == null || searchModel.data == null) return null;
     SearchItem item = searchModel.data[pos];
-    return Text(item.word);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => (WebView(
+                      url: item.url,
+                      title: '详情',
+                    ))));
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey, width: 0.3))),
+        child: Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 300,
+                  child: _title(item),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 5),
+                  width: 300,
+                  child: _subTitle(item),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _title(SearchItem item) {
+    if (item == null) return null;
+    List<TextSpan> spans = [];
+    spans.addAll(_keywordTextSpans(item.word, searchModel.keyword));
+    spans.add(TextSpan(
+        text: '',
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 16,
+        )));
+
+    return RichText(
+      text: TextSpan(
+        children: spans,
+      ),
+    );
+  }
+
+  _subTitle(SearchItem item) {
+    if (item == null) return null;
+  }
+  // 富文本文字高亮
+  _keywordTextSpans(String word, String keyword) {
+    if (word == null || word.length == 0) return null;
+    List<TextSpan> spans = [];
+    List<String> arr = word.split(keyword);
+    for (int i = 0; i < arr.length; i++) {
+      if ((i + 1) % 2 == 0) {
+        spans.add(TextSpan(
+            text: keyword,
+            style: TextStyle(color: Colors.orange, fontSize: 16)));
+      }
+      String val = arr[i];
+      if (val != null && val.length > 0) {
+        spans.add(TextSpan(
+            text: val, style: TextStyle(color: Colors.black87, fontSize: 16)));
+      }
+    }
+    return spans;
   }
 
   _appBar(BuildContext context) {
@@ -93,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
 
     String url = widget.searchUrl + text;
     SearchDao.fetch(url, text).then((SearchModel modal) {
-      if(modal.keyword == keyWord) {
+      if (modal.keyword == keyWord) {
         setState(() {
           searchModel = modal;
         });
