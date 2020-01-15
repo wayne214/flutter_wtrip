@@ -91,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
     List<TextSpan> spans = [];
     spans.addAll(_keywordTextSpans(item.word, searchModel.keyword));
     spans.add(TextSpan(
-        text: '',
+        text: ' ' + (item.districtname??'') + ' ' +(item.zonename??''),
         style: TextStyle(
           color: Colors.grey,
           fontSize: 16,
@@ -106,6 +106,20 @@ class _SearchPageState extends State<SearchPage> {
 
   _subTitle(SearchItem item) {
     if (item == null) return null;
+    return RichText(
+      text: TextSpan(
+        children: <TextSpan>[
+          TextSpan(
+            text: item.price??"",
+            style: TextStyle(color: Colors.orange, fontSize: 16),
+          ),
+          TextSpan(
+            text: " " + (item.star??""),
+            style: TextStyle(color: Colors.orange, fontSize: 16),
+          ),
+        ]
+      ),
+    );
   }
   // 富文本文字高亮
   _keywordTextSpans(String word, String keyword) {
