@@ -60,7 +60,6 @@ class Article {
   int commentCount;
   int shareCount;
   List<Urls> urls;
-  List<Null> tags;
   List<Topics> topics;
   List<Pois> pois;
   String publishTime;
@@ -92,7 +91,6 @@ class Article {
         this.commentCount,
         this.shareCount,
         this.urls,
-        this.tags,
         this.topics,
         this.pois,
         this.publishTime,
@@ -289,11 +287,11 @@ class Images {
   int imageId;
   String dynamicUrl;
   String originalUrl;
-  int width;
-  int height;
+  double width;
+  double height;
   int mediaType;
-  int lat;
-  int lon;
+  double lat;
+  double lon;
   bool isWaterMarked;
 
   Images(

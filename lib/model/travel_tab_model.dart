@@ -2,16 +2,16 @@
 /// 旅拍模块顶部tab model
 class TravelTabModel {
   String url;
-  List<Tabs> tabs;
+  List<TravelTab> tabs;
 
   TravelTabModel({this.url, this.tabs});
 
   TravelTabModel.fromJson(Map<String, dynamic> json) {
     url = json['url'];
     if (json['tabs'] != null) {
-      tabs = new List<Tabs>();
+      tabs = new List<TravelTab>();
       json['tabs'].forEach((v) {
-        tabs.add(new Tabs.fromJson(v));
+        tabs.add(new TravelTab.fromJson(v));
       });
     }
   }
@@ -27,13 +27,13 @@ class TravelTabModel {
 }
 
 
-class Tabs {
+class TravelTab {
   String labelName;
   String groupChannelCode;
 
-  Tabs({this.labelName, this.groupChannelCode});
+  TravelTab({this.labelName, this.groupChannelCode});
 
-  Tabs.fromJson(Map<String, dynamic> json) {
+  TravelTab.fromJson(Map<String, dynamic> json) {
     labelName = json['labelName'];
     groupChannelCode = json['groupChannelCode'];
   }

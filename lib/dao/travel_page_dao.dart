@@ -5,8 +5,8 @@ import 'dart:convert'; // http.Response 转换
 
 const TRAVEL_PAGE_DEFAULT_URL =
     'https://m.ctrip.com/restapi/soa2/16189/json/searchTripShootListForHomePageV2?_fxpcqlniredt=09031014111431397988&__gw_appid=99999999&__gw_ver=1.0&__gw_from=10650013707&__gw_platform=H5';
-// 固定参数
-const Params = {
+// 固定参数,如果要被修改，不要定义成const
+var Params = {
   "districtId": -1,
   "groupChannelCode": "tourphoto_global1",
   "type": null,
@@ -32,7 +32,7 @@ class TravelPageDao {
     paramsMap['pageIndex'] = pageIndex;
     paramsMap['pageSize'] = pageSize;
     Params['groupChannelCode'] = groupChannelCode;
-    final response = await http.post(url, body: jsonEncode(Params));
+    var response = await http.post(TRAVEL_PAGE_DEFAULT_URL, body: jsonEncode(Params));
     if (response.statusCode == 200) {
       Utf8Decoder utf8decoder = Utf8Decoder(); // fix 中文乱码
       var result = json.decode(utf8decoder.convert(response.bodyBytes));

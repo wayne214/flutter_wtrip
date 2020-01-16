@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         isLoading = false;
       });
 
-      print(model.config.searchUrl);
+//      print(model.config.searchUrl);
     } catch (e) {
       print(e);
       setState(() {
