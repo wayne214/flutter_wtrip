@@ -32,17 +32,23 @@ class _TravelTabPageState extends State<TravelTabPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        body: StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
-      itemCount: travelPageItems?.length ?? 0,
-      itemBuilder: (BuildContext context, int index) => _TravelItem(index: index, item: travelPageItems[index],),
-      staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
-    ));
+        body: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: StaggeredGridView.countBuilder(
+              crossAxisCount: 4,
+              itemCount: travelPageItems?.length ?? 0,
+              itemBuilder: (BuildContext context, int index) => _TravelItem(
+                index: index,
+                item: travelPageItems[index],
+              ),
+              staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+            )));
   }
 
   void _loadData() {
-    TravelPageDao.fetch(widget.travelUrl??DEFAULT_URL, widget.groupChannelCode,
-        pageIndex, PAGE_SIZE)
+    TravelPageDao.fetch(widget.travelUrl ?? DEFAULT_URL,
+            widget.groupChannelCode, pageIndex, PAGE_SIZE)
         .then((TravelPageModel model) {
       setState(() {
         List<TravelPageItem> items = _filterItems(model.resultList);
@@ -59,7 +65,7 @@ class _TravelTabPageState extends State<TravelTabPage> {
 
   /// 过滤服务器返回结果， 移除article为空
   List<TravelPageItem> _filterItems(List<TravelPageItem> resultList) {
-    if (resultList == null){
+    if (resultList == null) {
       return [];
     }
     List<TravelPageItem> filterItems = [];
@@ -76,13 +82,84 @@ class _TravelTabPageState extends State<TravelTabPage> {
 class _TravelItem extends StatelessWidget {
   final int index;
   final TravelPageItem item;
+
   const _TravelItem({Key key, this.index, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      child: Text('$index'),
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+        child: PhysicalModel(
+          color: Colors.transparent,
+          clipBehavior: Clip.antiAlias,
+          borderRadius: BorderRadius.circular(5),
+          child: Column(
+            children: <Widget>[
+              _itemImage(),
+              Container(
+                padding: EdgeInsets.all(4),
+                child: Text(
+                  item.article.articleTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.black87, fontSize: 14),
+                ),
+              ),
+              _infoText(),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  _infoText() {
+    return Text('');
+  }
+
+  _itemImage() {
+    return Stack(
+      children: <Widget>[
+        Image.network(item.article.images[0]?.dynamicUrl),
+        Positioned(
+          bottom: 8,
+          left: 8,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
+            decoration: BoxDecoration(
+                color: Colors.black54, borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 3),
+                  child: Icon(
+                    Icons.location_on,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                ),
+                LimitedBox(
+                  maxWidth: 130,
+                  child: Text(
+                    _poiName(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                )
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  _poiName() {
+    return item.article.pois == null || item.article.pois.length == 0
+        ? '未知'
+        : item.article.pois[0]?.poiName ?? '未知';
   }
 }
