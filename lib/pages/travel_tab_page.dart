@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wtrip/dao/travel_page_dao.dart';
 import 'package:flutter_wtrip/model/travel_page_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_wtrip/widgets/webview.dart';
 
 const DEFAULT_URL =
     'https://m.ctrip.com/restapi/soa2/16189/json/searchTripShootListForHomePageV2?_fxpcqlniredt=09031014111431397988&__gw_appid=99999999&__gw_ver=1.0&__gw_from=10650013707&__gw_platform=H5';
@@ -17,8 +18,8 @@ class TravelTabPage extends StatefulWidget {
   @override
   _TravelTabPageState createState() => _TravelTabPageState();
 }
-
-class _TravelTabPageState extends State<TravelTabPage> {
+/// with AutomaticKeepAliveClientMixin 加载过的页面重绘
+class _TravelTabPageState extends State<TravelTabPage> with AutomaticKeepAliveClientMixin{
   List<TravelPageItem> travelPageItems = [];
   int pageIndex = 1;
 
@@ -77,6 +78,10 @@ class _TravelTabPageState extends State<TravelTabPage> {
 
     return filterItems;
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class _TravelItem extends StatelessWidget {
@@ -89,13 +94,23 @@ class _TravelItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => (WebView(
+                  url: item.article.urls[0].h5Url,
+                  title: '旅拍详情',
+                ))));
+      },
       child: Card(
+        /// 裁切圆角
         child: PhysicalModel(
           color: Colors.transparent,
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(5),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // 设置子widget未知
             children: <Widget>[
               _itemImage(),
               Container(
@@ -116,7 +131,54 @@ class _TravelItem extends StatelessWidget {
   }
 
   _infoText() {
-    return Text('');
+    return Container(
+      padding: EdgeInsets.fromLTRB(6, 0, 6, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              PhysicalModel(
+                color: Colors.transparent,
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  item.article.author?.coverImage?.dynamicUrl,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(5),
+                width: 90,
+                child: Text(
+                  item.article.articleTitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 12,
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.thumb_up,
+                size: 14,
+                color: Colors.grey,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 3),
+                child: Text(item.article.likeCount.toString()),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   _itemImage() {
@@ -140,7 +202,7 @@ class _TravelItem extends StatelessWidget {
                     size: 12,
                   ),
                 ),
-                LimitedBox(
+                LimitedBox( // 显示带缩略号的文字
                   maxWidth: 130,
                   child: Text(
                     _poiName(),

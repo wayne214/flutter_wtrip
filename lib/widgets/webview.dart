@@ -101,7 +101,7 @@ class _WebViewState extends State<WebView> {
             withZoom: true,
               hidden: true,
               initialChild: Container(
-                color: Colors.redAccent,
+                color: Colors.white,
                 child: Center(
                   child: Text('Waiting'),
                 ),
