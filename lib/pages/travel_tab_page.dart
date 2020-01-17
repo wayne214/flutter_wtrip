@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wtrip/dao/travel_page_dao.dart';
 import 'package:flutter_wtrip/model/travel_page_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_wtrip/widgets/loading_container.dart';
 import 'package:flutter_wtrip/widgets/webview.dart';
 
 const DEFAULT_URL =
@@ -18,39 +19,71 @@ class TravelTabPage extends StatefulWidget {
   @override
   _TravelTabPageState createState() => _TravelTabPageState();
 }
+
 /// with AutomaticKeepAliveClientMixin 加载过的页面重绘
-class _TravelTabPageState extends State<TravelTabPage> with AutomaticKeepAliveClientMixin{
+class _TravelTabPageState extends State<TravelTabPage>
+    with AutomaticKeepAliveClientMixin {
   List<TravelPageItem> travelPageItems = [];
   int pageIndex = 1;
+  bool _isLoading = true;
+
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     _loadData();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _loadData(isLoadMore: true);
+      }
+    });
     super.initState();
+  }
+
+  // 刷新是一个异步方法
+  Future<Null> _handleRefresh() async {
+    _loadData();
+
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        body: MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              itemCount: travelPageItems?.length ?? 0,
-              itemBuilder: (BuildContext context, int index) => _TravelItem(
-                index: index,
-                item: travelPageItems[index],
-              ),
-              staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
-            )));
+        body: LoadingContainer(
+      isLoading: _isLoading,
+      child: RefreshIndicator(
+          child: MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: StaggeredGridView.countBuilder(
+                controller: _scrollController,
+                crossAxisCount: 4,
+                itemCount: travelPageItems?.length ?? 0,
+                itemBuilder: (BuildContext context, int index) => _TravelItem(
+                  index: index,
+                  item: travelPageItems[index],
+                ),
+                staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+              )),
+          onRefresh: _handleRefresh),
+    ));
   }
 
-  void _loadData() {
+  /// Dart 可选参数
+  void _loadData({isLoadMore = false}) {
+    if (isLoadMore) {
+      pageIndex++;
+    } else {
+      pageIndex = 1;
+    }
+
     TravelPageDao.fetch(widget.travelUrl ?? DEFAULT_URL,
             widget.groupChannelCode, pageIndex, PAGE_SIZE)
         .then((TravelPageModel model) {
+      _isLoading = false;
       setState(() {
         List<TravelPageItem> items = _filterItems(model.resultList);
         if (travelPageItems != null) {
@@ -60,6 +93,7 @@ class _TravelTabPageState extends State<TravelTabPage> with AutomaticKeepAliveCl
         }
       });
     }).catchError((e) {
+      _isLoading = false;
       print(e);
     });
   }
@@ -99,9 +133,9 @@ class _TravelItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => (WebView(
-                  url: item.article.urls[0].h5Url,
-                  title: '旅拍详情',
-                ))));
+                      url: item.article.urls[0].h5Url,
+                      title: '旅拍详情',
+                    ))));
       },
       child: Card(
         /// 裁切圆角
@@ -202,7 +236,8 @@ class _TravelItem extends StatelessWidget {
                     size: 12,
                   ),
                 ),
-                LimitedBox( // 显示带缩略号的文字
+                LimitedBox(
+                  // 显示带缩略号的文字
                   maxWidth: 130,
                   child: Text(
                     _poiName(),
