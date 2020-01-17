@@ -160,7 +160,7 @@ class _SearchBarState extends State<SearchBar> {
                 ? TextField(
                     controller: _controller,
                     onChanged: _onChanged,
-                    autofocus: true,
+                    autofocus: false,
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.black,
