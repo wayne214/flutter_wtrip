@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wtrip/dao/travel_page_dao.dart';
 import 'package:flutter_wtrip/dao/travel_tab_dao.dart';
-import 'package:flutter_wtrip/model/travel_page_model.dart';
 import 'package:flutter_wtrip/model/travel_tab_model.dart';
 import 'package:flutter_wtrip/pages/travel_tab_page.dart';
 

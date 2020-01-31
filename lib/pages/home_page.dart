@@ -3,7 +3,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_wtrip/dao/home_dao.dart';
 import 'package:flutter_wtrip/model/common_model.dart';
 import 'package:flutter_wtrip/model/gridNav_model.dart';
-import 'dart:convert';
 
 import 'package:flutter_wtrip/model/home_model.dart';
 import 'package:flutter_wtrip/model/sales_box_model.dart';
