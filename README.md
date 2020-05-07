@@ -16,9 +16,32 @@
  - flutter_staggered_grid_view: ^0.3.0（网格布局，旅拍模块）
  
  
+## Flutter中常用第三方
+- cached_network_image 图片缓存框架
+- http 网络请求框架
+- fluttertoast 吐司提示框架
+- flutter_webview_plugin webView框架
+- flutter_swiper 轮播图框架
+- flustars 工具类集合
+- pull_to_refresh 上拉刷新，下拉加载框架
+- chewie 视频播放器框架
+- shared_preferences 本地缓存框架
+- flutter_splash_screen 启动白屏处理框架
+- image_picker 相册取图/拍照框架
+- share 分享框架
+- provider 状态框架
+- Get 路由框架
+ 
+ 
+ 
 ## 关于我
 
 我曾是一个Android开发工程师，现在主要使用ReactNative跨平台框架开发App，始终保持对新技术的学习和探索。
+
+- WX: wayne214
+- 博客：https://blog.csdn.net/wayne214
+- 掘金：https://juejin.im/user/58fdbbcbda2f60005dcbe47d
+- 技术网站：https://wayne214.github.io/
 
 
 > 技术交流可关注微信公众号【君伟说】，加我好友(vx:wayne214)一起探讨 
