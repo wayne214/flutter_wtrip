@@ -24,3 +24,4 @@
 > 技术交流可关注微信公众号【君伟说】，加我好友(vx:wayne214)一起探讨 
 > 微信交流群：加好友（备注技术交流）邀你入群，抱团学习共进步
 
+![君伟说](https://github.com/wayne214/flutter_wtrip/blob/master/images/%E5%90%9B%E4%BC%9F%E8%AF%B4.png)
