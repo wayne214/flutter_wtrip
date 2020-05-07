@@ -103,7 +103,19 @@ class _WebViewState extends State<WebView> {
               initialChild: Container(
                 color: Colors.white,
                 child: Center(
-                  child: Text('Waiting'),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new CircularProgressIndicator(),
+                      new Padding(padding: const EdgeInsets.only(top: 20.0),
+                        child: new Text(
+                          'Loading',
+                          style: new TextStyle(fontSize: 12.0, color: Colors.lightBlue),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
