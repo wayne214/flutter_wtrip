@@ -35,6 +35,4 @@ class _CityPageState extends State<CityPage> {
     throw UnimplementedError();
   }
 
-
-
 }
