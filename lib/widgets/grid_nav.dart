@@ -65,7 +65,7 @@ class GridNav extends StatelessWidget {
       ),
     );
   }
-
+  // 最左边的卡片
   _mainItem(BuildContext context, CommonModel model) {
     return _wrapGesture(context, Stack(
       alignment: AlignmentDirectional.topCenter,
@@ -87,7 +87,7 @@ class GridNav extends StatelessWidget {
       ],
     ), model);
   }
-
+  // 小卡片竖直排列的两块
   _doubleItem(BuildContext context, CommonModel topModel,
       CommonModel bottomModel) {
     return Column(
@@ -101,7 +101,7 @@ class GridNav extends StatelessWidget {
       ],
     );
   }
-
+  // 单独的每个小卡片
   _item(BuildContext context, CommonModel item, bool isFirst) {
     BorderSide borderSide = BorderSide(width: 0.8, color: Colors.white);
     return FractionallySizedBox(

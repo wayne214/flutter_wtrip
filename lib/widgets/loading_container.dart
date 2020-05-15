@@ -24,7 +24,19 @@ class LoadingContainer extends StatelessWidget {
 
   Widget get _loadingView{
     return Center(
-      child: CircularProgressIndicator(),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new CircularProgressIndicator(),
+          new Padding(padding: const EdgeInsets.only(top: 20.0),
+            child: new Text(
+              '拼命加载中...',
+              style: new TextStyle(fontSize: 12.0, color: Colors.lightBlue),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

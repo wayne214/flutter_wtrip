@@ -110,7 +110,7 @@ class _WebViewState extends State<WebView> {
                       new CircularProgressIndicator(),
                       new Padding(padding: const EdgeInsets.only(top: 20.0),
                         child: new Text(
-                          'Loading',
+                          '加载中',
                           style: new TextStyle(fontSize: 12.0, color: Colors.lightBlue),
                         ),
                       )
