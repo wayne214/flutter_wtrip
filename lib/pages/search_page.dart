@@ -85,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-
+  // 主标题
   _title(SearchItem item) {
     if (item == null) return null;
     List<TextSpan> spans = [];
@@ -103,7 +103,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-
+  // 副标题
   _subTitle(SearchItem item) {
     if (item == null) return null;
     return RichText(

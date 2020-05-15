@@ -83,7 +83,7 @@ class _SearchBarState extends State<SearchBar> {
                   ),
                 ),
               ),
-              widget.leftButtonClick),
+              widget.rightButtonClick),
         ],
       ),
     );

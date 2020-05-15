@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   double appBarAlpha = 0;
 
   String resultString = '';
@@ -42,6 +42,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _handleRefresh();
   }
+  //缓存页面
+  @override
+  bool get wantKeepAlive => true;
 
   Future<Null> _handleRefresh() async {
 //    HomeDao.fetch().then((result){
@@ -74,7 +77,7 @@ class _HomePageState extends State<HomePage> {
 
     return null;
   }
-
+  //判断滚动改变透明度
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
     if (alpha < 0) {
@@ -86,6 +89,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       appBarAlpha = alpha;
     });
+  }
+  // 跳转至城市页面
+  _jumpToCity() {
+
   }
 
   // 跳转搜索页面
@@ -159,6 +166,7 @@ class _HomePageState extends State<HomePage> {
               defaultText: SEARCH_BAR_DEFAULT_TEXT,
               inputBoxClick: _jumpToSearch,
               speakClick: _jumpToSpeak,
+              leftButtonClick: _jumpToCity,
             ),
           ),
         ),
@@ -171,7 +179,7 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
+  // banner轮播图
   Widget get _banner {
     return Container(
       height: 160,
