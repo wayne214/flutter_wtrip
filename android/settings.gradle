@@ -13,3 +13,10 @@ plugins.each { name, path ->
     include ":$name"
     project(":$name").projectDir = pluginDirectory
 }
+
+setBinding(new Binding([gradle: this]))
+
+//evaluate(new File(
+//        settingsDir.parentFile,
+//        'flutter_module/.android/include_flutter.groovy'
+//))
