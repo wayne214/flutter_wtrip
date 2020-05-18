@@ -31,8 +31,10 @@
 - share 分享框架
 - provider 状态框架
 - Get 路由框架
+- [azlistview](https://github.com/flutterchina/azlistview)(Flutter 城市列表，联系人列表，自定义Header，索引，悬停效果)
  
- 
+## 注意内容
+-  新AzListView data需要a-z排过序的列表，请自行调用SuspensionUtil.sortListBySuspensionTag(list)。
  
 ## 关于我
 
