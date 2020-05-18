@@ -37,7 +37,7 @@ class _CityPageState extends State<CityPage> {
         _cityList = _cityList;
       });
       
-      print(_cityList);
+//      print(_cityList);
     } catch (e) {
       print(e);
     }

@@ -30,6 +30,7 @@ dependencies:
   azlistview: ^0.1.2
   lpinyin: ^1.0.8
   package_info: ^0.4.0+18
+  dio: ^3.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
