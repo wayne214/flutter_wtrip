@@ -2,11 +2,13 @@
 
 #### 这是一个Flutter版本的仿携程App的demo，相对完整的学习一个APP的开发过程，更加高效的进行学习Flutter开发
 
-## 模块
+## 模块与特性
 - 首页(已完成)
 - 搜索(已完成部分，缺少语音搜索功能)
 - 旅拍(瀑布流展示)
 - 我的(Webview展示)
+- 实现网络图片本地缓存
+- 选择定位城市列表
 
 ## 项目中使用到第三方
  - cupertino_icons: ^0.1.2(图标库)
@@ -31,8 +33,12 @@
 - share 分享框架
 - provider 状态框架
 - Get 路由框架
+- [azlistview](https://github.com/flutterchina/azlistview)(Flutter 城市列表，联系人列表，自定义Header，索引，悬停效果)
+- [dio](https://github.com/flutterchina/dio)dio是一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等...
+- [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)网络图片本地缓存
  
- 
+## 注意内容
+-  新AzListView data需要a-z排过序的列表，请自行调用SuspensionUtil.sortListBySuspensionTag(list)。
  
 ## 关于我
 
