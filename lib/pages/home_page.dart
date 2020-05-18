@@ -16,6 +16,7 @@ import 'package:flutter_wtrip/widgets/sub_nav.dart';
 import 'package:flutter_wtrip/widgets/webview.dart';
 import 'package:flutter_wtrip/pages/city_page.dart';
 import 'package:flutter_wtrip/util/navigator_util.dart';
+import 'package:flutter_wtrip/widgets/cached_image.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
@@ -205,8 +206,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                             hideAppBar: bannerList[index].hideAppBar,
                           ))));
             },
-            child: Image.network(
-              bannerList[index].icon,
+            child: CachedImage(
+              imageUrl: bannerList[index].icon,
               fit: BoxFit.fill,
             ),
           );
