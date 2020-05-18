@@ -35,8 +35,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   GridNavModel gridNavModel;
   SalesBoxModel salesBoxModel;
-
+  // 加载状态
   bool isLoading = true;
+
+  String city = '北京市';
 
   @override
   void initState() {
@@ -92,12 +94,18 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     });
   }
   // 跳转至城市页面
-  _jumpToCity() {
-    Navigator.push(
+  _jumpToCity() async{
+    String result = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => CityPage())
     );
+
+    if(result != null){
+      setState(() {
+        city = result;
+      });
+    }
   }
 
   // 跳转搜索页面
@@ -172,6 +180,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               inputBoxClick: _jumpToSearch,
               speakClick: _jumpToSpeak,
               leftButtonClick: _jumpToCity,
+              city: city,
             ),
           ),
         ),
