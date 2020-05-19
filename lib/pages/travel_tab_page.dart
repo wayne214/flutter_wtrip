@@ -73,17 +73,18 @@ class _TravelTabPageState extends State<TravelTabPage>
   }
 
   /// Dart 可选参数
-  void _loadData({isLoadMore = false}) {
+  void _loadData({isLoadMore = false}) async{
     if (isLoadMore) {
       pageIndex++;
     } else {
       pageIndex = 1;
     }
 
-    TravelPageDao.fetch(widget.travelUrl ?? DEFAULT_URL,
-            widget.groupChannelCode, pageIndex, PAGE_SIZE)
-        .then((TravelPageModel model) {
+    try{
+      TravelPageModel model = await TravelPageDao.fetch(widget.travelUrl ?? DEFAULT_URL,
+          widget.groupChannelCode, pageIndex, PAGE_SIZE);
       _isLoading = false;
+
       setState(() {
         List<TravelPageItem> items = _filterItems(model.resultList);
         if (travelPageItems != null) {
@@ -92,10 +93,10 @@ class _TravelTabPageState extends State<TravelTabPage>
           travelPageItems = items;
         }
       });
-    }).catchError((e) {
-      _isLoading = false;
+    } catch(e){
       print(e);
-    });
+      _isLoading = false;
+    }
   }
 
   /// 过滤服务器返回结果， 移除article为空
