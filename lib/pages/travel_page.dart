@@ -53,7 +53,8 @@ class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
               controller: _tabController,
               isScrollable: true,
               labelColor: Colors.black,
-              labelPadding: EdgeInsets.fromLTRB(20, 0, 10, 5),
+              labelPadding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+              indicatorSize: TabBarIndicatorSize.label,
               indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
                     color: Color(0xff2fcfbb),
