@@ -171,7 +171,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  _onChangeText(String text) {
+  _onChangeText(String text) async{
     keyWord = text;
     if (text.length == 0) {
       setState(() {
@@ -180,15 +180,25 @@ class _SearchPageState extends State<SearchPage> {
       return;
     }
 
-    String url = widget.searchUrl + text;
-    SearchDao.fetch(url, text).then((SearchModel modal) {
-      if (modal.keyword == keyWord) {
+    try{
+      SearchModel model = await SearchDao.fetch(text);
+      if (model.keyword == keyWord) {
         setState(() {
-          searchModel = modal;
+          searchModel = model;
         });
       }
-    }).catchError((e) {
+    }catch(e){
       print(e);
-    });
+    }
+
+//    SearchDao.fetch(text).then((SearchModel modal) {
+//      if (modal.keyword == keyWord) {
+//        setState(() {
+//          searchModel = modal;
+//        });
+//      }
+//    }).catchError((e) {
+//      print(e);
+//    });
   }
 }

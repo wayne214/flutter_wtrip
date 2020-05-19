@@ -8,6 +8,7 @@ class SearchBar extends StatefulWidget {
   final SearchBarType searchBarType;
   final String hint;
   final String defaultText;
+  final String city;
   final void Function() leftButtonClick;
   final void Function() rightButtonClick;
   final void Function() speakClick;
@@ -25,6 +26,7 @@ class SearchBar extends StatefulWidget {
       this.rightButtonClick,
       this.speakClick,
       this.inputBoxClick,
+      this.city,
       this.onChange})
       : super(key: key);
 
@@ -99,7 +101,7 @@ class _SearchBarState extends State<SearchBar> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '北京',
+                      widget.city,
                       style: TextStyle(color: _homeFontColor(), fontSize: 14),
                     ),
                     Icon(
@@ -124,7 +126,7 @@ class _SearchBarState extends State<SearchBar> {
                   size: 26,
                 ),
               ),
-              widget.leftButtonClick),
+              widget.rightButtonClick),
         ],
       ),
     );

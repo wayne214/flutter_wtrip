@@ -15,6 +15,8 @@ import 'package:flutter_wtrip/widgets/search_bar.dart';
 import 'package:flutter_wtrip/widgets/sub_nav.dart';
 import 'package:flutter_wtrip/widgets/webview.dart';
 import 'package:flutter_wtrip/pages/city_page.dart';
+import 'package:flutter_wtrip/util/navigator_util.dart';
+import 'package:flutter_wtrip/widgets/cached_image.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
@@ -35,8 +37,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   GridNavModel gridNavModel;
   SalesBoxModel salesBoxModel;
-
+  // 加载状态
   bool isLoading = true;
+
+  String city = '北京市';
 
   @override
   void initState() {
@@ -92,21 +96,19 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     });
   }
   // 跳转至城市页面
-  _jumpToCity() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CityPage())
-    );
+  _jumpToCity() async{
+    String result = await NavigatorUtil.push(context, CityPage());
+
+    if(result != null){
+      setState(() {
+        city = result;
+      });
+    }
   }
 
   // 跳转搜索页面
   _jumpToSearch() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SearchPage(hint: SEARCH_BAR_DEFAULT_TEXT))
-    );
+    NavigatorUtil.push(context, SearchPage(hint: SEARCH_BAR_DEFAULT_TEXT));
   }
 
   // 跳转语音页面
@@ -172,6 +174,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               inputBoxClick: _jumpToSearch,
               speakClick: _jumpToSpeak,
               leftButtonClick: _jumpToCity,
+              city: city,
             ),
           ),
         ),
@@ -203,8 +206,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                             hideAppBar: bannerList[index].hideAppBar,
                           ))));
             },
-            child: Image.network(
-              bannerList[index].icon,
+            child: CachedImage(
+              imageUrl: bannerList[index].icon,
               fit: BoxFit.fill,
             ),
           );
