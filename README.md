@@ -36,6 +36,7 @@
 - [azlistview](https://github.com/flutterchina/azlistview)(Flutter 城市列表，联系人列表，自定义Header，索引，悬停效果)
 - [dio](https://github.com/flutterchina/dio)dio是一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等...
 - [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)网络图片本地缓存
+- [event_bus](https://pub.flutter-io.cn/packages/event_bus#-installing-tab-)事件总线，用户消息传递
  
 ## 注意内容
 -  新AzListView data需要a-z排过序的列表，请自行调用SuspensionUtil.sortListBySuspensionTag(list)。
