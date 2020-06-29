@@ -26,7 +26,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   double appBarAlpha = 0;
 
   String resultString = '';
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   GridNavModel gridNavModel;
   SalesBoxModel salesBoxModel;
+
   // 加载状态
   bool isLoading = true;
 
@@ -47,6 +49,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     super.initState();
     _handleRefresh();
   }
+
   //缓存页面
   @override
   bool get wantKeepAlive => true;
@@ -82,6 +85,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
     return null;
   }
+
   //判断滚动改变透明度
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
@@ -95,11 +99,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       appBarAlpha = alpha;
     });
   }
+
   // 跳转至城市页面
-  _jumpToCity() async{
+  _jumpToCity() async {
     String result = await NavigatorUtil.push(context, CityPage());
 
-    if(result != null){
+    if (result != null) {
       setState(() {
         city = result;
       });
@@ -124,7 +129,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
           child: Stack(
             children: <Widget>[
               MediaQuery.removePadding(
-                  // 去除手机顶部的padding
+                // 去除手机顶部的padding
                   removeTop: true,
                   context: context,
                   child: RefreshIndicator(
@@ -154,12 +159,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         Container(
           // 装饰器
           decoration: BoxDecoration(
-              // 线性渐变
-            gradient: LinearGradient(
-            colors: [Color(0x66000000), Colors.transparent],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          )),
+            // 线性渐变
+              gradient: LinearGradient(
+                colors: [Color(0x66000000), Colors.transparent],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
             height: 80,
@@ -187,6 +192,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       ],
     );
   }
+
   // banner轮播图
   Widget get _banner {
     return Container(
@@ -197,14 +203,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector( // 点击事件
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => (WebView(
-                            url: bannerList[index].url,
-                            statusBarColor: bannerList[index].statusBarColor,
-                            hideAppBar: bannerList[index].hideAppBar,
-                          ))));
+              NavigatorUtil.push(context, WebView(url: bannerList[index].url,
+                statusBarColor: bannerList[index].statusBarColor,
+                hideAppBar: bannerList[index].hideAppBar,));
             },
             child: CachedImage(
               imageUrl: bannerList[index].icon,
@@ -246,12 +247,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
           ),
           padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
         ),
-//                      Container(
-//                        height: 800,
-//                        child: ListTile(
-//                          title: Text(resultString),
-//                        ),
-//                      )
       ],
     );
   }
