@@ -26,6 +26,7 @@ class _TravelTabPageState extends State<TravelTabPage>
   List<TravelPageItem> travelPageItems = [];
   int pageIndex = 1;
   bool _isLoading = true;
+  bool showToTopBtn = false;
 
   ScrollController _scrollController = ScrollController();
 
@@ -33,6 +34,16 @@ class _TravelTabPageState extends State<TravelTabPage>
   void initState() {
     _loadData();
     _scrollController.addListener(() {
+      if (_scrollController.offset < 1000 && showToTopBtn) {
+        setState(() {
+          showToTopBtn = false;
+        });
+      } else if (_scrollController.offset >= 1000 && showToTopBtn == false) {
+        setState(() {
+          showToTopBtn = true;
+        });
+      }
+
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         _loadData(isLoadMore: true);
@@ -52,38 +63,53 @@ class _TravelTabPageState extends State<TravelTabPage>
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        body: LoadingContainer(
-      isLoading: _isLoading,
-      child: RefreshIndicator(
-          child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: StaggeredGridView.countBuilder(
-                controller: _scrollController,
-                crossAxisCount: 4,
-                itemCount: travelPageItems?.length ?? 0,
-                itemBuilder: (BuildContext context, int index) => _TravelItem(
-                  index: index,
-                  item: travelPageItems[index],
-                ),
-                staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
-              )),
-          onRefresh: _handleRefresh),
-    ));
+      body: LoadingContainer(
+        isLoading: _isLoading,
+        child: RefreshIndicator(
+            child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: StaggeredGridView.countBuilder(
+                  controller: _scrollController,
+                  crossAxisCount: 4,
+                  itemCount: travelPageItems?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) => _TravelItem(
+                    index: index,
+                    item: travelPageItems[index],
+                  ),
+                  staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+                )),
+            onRefresh: _handleRefresh),
+      ),
+      // 显示一个返回顶部按钮
+      floatingActionButton: !showToTopBtn
+          ? null
+          : FloatingActionButton(
+              child: Icon(Icons.arrow_upward),
+              onPressed: () {
+                _scrollController.animateTo(.0,
+                    duration: Duration(microseconds: 200), curve: Curves.ease);
+              },
+            ),
+    );
   }
 
   /// Dart 可选参数
-  void _loadData({isLoadMore = false}) {
+  void _loadData({isLoadMore = false}) async {
     if (isLoadMore) {
       pageIndex++;
     } else {
       pageIndex = 1;
     }
 
-    TravelPageDao.fetch(widget.travelUrl ?? DEFAULT_URL,
-            widget.groupChannelCode, pageIndex, PAGE_SIZE)
-        .then((TravelPageModel model) {
+    try {
+      TravelPageModel model = await TravelPageDao.fetch(
+          widget.travelUrl ?? DEFAULT_URL,
+          widget.groupChannelCode,
+          pageIndex,
+          PAGE_SIZE);
       _isLoading = false;
+
       setState(() {
         List<TravelPageItem> items = _filterItems(model.resultList);
         if (travelPageItems != null) {
@@ -92,10 +118,10 @@ class _TravelTabPageState extends State<TravelTabPage>
           travelPageItems = items;
         }
       });
-    }).catchError((e) {
-      _isLoading = false;
+    } catch (e) {
       print(e);
-    });
+      _isLoading = false;
+    }
   }
 
   /// 过滤服务器返回结果， 移除article为空

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 // 加载进度条组件
 class LoadingContainer extends StatelessWidget {
   final Widget child;
@@ -28,7 +30,8 @@ class LoadingContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          new CircularProgressIndicator(),
+//          new CircularProgressIndicator(),
+          new SpinKitPumpingHeart(color: Colors.blue,),
           new Padding(padding: const EdgeInsets.only(top: 20.0),
             child: new Text(
               '拼命加载中...',
