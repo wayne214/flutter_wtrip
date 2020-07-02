@@ -19,20 +19,22 @@
  
  
 ## Flutter中常用第三方
-- cached_network_image 图片缓存框架
-- http 网络请求框架
-- fluttertoast 吐司提示框架
-- flutter_webview_plugin webView框架
-- flutter_swiper 轮播图框架
-- flustars 工具类集合
-- pull_to_refresh 上拉刷新，下拉加载框架
-- chewie 视频播放器框架
-- shared_preferences 本地缓存框架
-- flutter_splash_screen 启动白屏处理框架
-- image_picker 相册取图/拍照框架
-- share 分享框架
-- provider 状态框架
-- Get 路由框架
+- [cached_network_image](https://pub.dev/packages/cached_network_image) 图片缓存框架
+- [http](https://pub.dev/packages/http) 网络请求框架
+- [fluttertoast](https://pub.dev/packages/fluttertoast) 吐司提示框架
+- [flutter_webview_plugin](https://pub.dev/packages/flutter_webview_plugin) webView框架
+- [webview_flutter](https://pub.dev/packages/webview_flutter)WebView 组件
+- [flutter_swiper](https://pub.dev/packages/flutter_swiper) 轮播图框架
+- [flustars](https://pub.dev/packages/flustars)flustars(Flutter常用工具类库) 
+- [pull_to_refresh](https://pub.dev/packages/pull_to_refresh) 上拉刷新，下拉加载框架
+- [chewie](https://pub.dev/packages/chewie)Video 视频播放器框架
+- [shared_preferences](https://pub.dev/packages/shared_preferences) 本地缓存框架
+- [flutter_splash_screen](https://pub.dev/packages/flutter_splash_screen) 启动白屏处理框架
+- [image_picker](https://pub.dev/packages/image_picker) 相册取图/拍照框架
+- [multi_image_picker](https://pub.dev/packages/multi_image_picker) 多图选择
+- [share](https://pub.dev/packages/share) 分享框架
+- [provider](https://pub.dev/packages/provider) 状态框架
+- [Get](https://pub.dev/packages/get) 路由框架
 - [azlistview](https://github.com/flutterchina/azlistview)(Flutter 城市列表，联系人列表，自定义Header，索引，悬停效果)
 - [dio](https://github.com/flutterchina/dio)dio是一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等...
 - [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)网络图片本地缓存
