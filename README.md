@@ -40,6 +40,8 @@
 - [Json_model](https://pub.dev/packages/json_model)根据Json文件自动生成DartModal类
 - [flutter_spinkit](https://pub.dev/packages/flutter_spinkit)丰富多样的加载指示器合集
 
+- [Flukit](https://github.com/flutterchina/flukit)flukit （Flutter UI Kit）是一个Flutter Widget库。
+
  
 ## 注意内容
 -  新AzListView data需要a-z排过序的列表，请自行调用SuspensionUtil.sortListBySuspensionTag(list)。
