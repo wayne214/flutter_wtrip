@@ -37,6 +37,8 @@
 - [dio](https://github.com/flutterchina/dio)dio是一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等...
 - [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)网络图片本地缓存
 - [event_bus](https://pub.flutter-io.cn/packages/event_bus#-installing-tab-)事件总线，用户消息传递
+- [Json_model](https://pub.dev/packages/json_model)根据Json文件自动生成DartModal类
+- [flutter_spinkit](https://pub.dev/packages/flutter_spinkit)丰富多样的加载指示器合集
 
  
 ## 注意内容

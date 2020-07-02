@@ -2,6 +2,7 @@ import 'package:flutter_wtrip/model/travel_tab_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async'; // 异步编程 Future
 import 'dart:convert'; // http.Response 转换
+import 'package:dio/dio.dart';
 
 const TRAVEL_TAB_URL =
     'http://www.devio.org/io/flutter_app/json/travel_page.json';
@@ -16,5 +17,12 @@ class TravelTabDao {
     } else {
       throw Exception('Failed to load home_page json');
     }
+
+//    Response response = await Dio().get(TRAVEL_TAB_URL);
+//    if(response.statusCode == 200) {
+//      return TravelTabModel.fromJson(response.data);
+//    } else {
+//      throw Exception('Failed to load TravelTabDao json');
+//    }
   }
 }
