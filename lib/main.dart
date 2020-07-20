@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'navigator/tab_navigator.dart';
 
+import 'package:provider/provider.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
