@@ -36,6 +36,10 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk{
+            abiFilters "arm64-v7a","arm64-v8a","x86_64","x86"
+        }
     }
 
     sourceSets {
@@ -73,6 +77,17 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+
+    //百度语音集成添加
+    packagingOptions {
+        // 确保app与asr_plugin都依赖的libflutter.so merge时不冲突@https://github.com/card-io/card.io-Android-SDK/issues/186#issuecomment-427552552
+        pickFirst 'lib/x86_64/libflutter.so'
+        pickFirst 'lib/x86/libflutter.so'
+        pickFirst 'lib/arm64-v8a/libflutter.so'
+        pickFirst 'lib/arm64-v8a/libapp.so'
+        pickFirst 'lib/armeabi-v7a/libapp.so'
+    }
 }
 
 flutter {
@@ -84,5 +99,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+
+    implementation project(path: ':asr_plugin')
 //    implementation project(':flutter')
 }
