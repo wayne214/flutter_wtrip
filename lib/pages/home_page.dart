@@ -17,6 +17,7 @@ import 'package:flutter_wtrip/widgets/webview.dart';
 import 'package:flutter_wtrip/pages/city_page.dart';
 import 'package:flutter_wtrip/util/navigator_util.dart';
 import 'package:flutter_wtrip/widgets/cached_image.dart';
+import 'package:flutter_wtrip/pages/speak_page.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
@@ -117,7 +118,9 @@ class _HomePageState extends State<HomePage>
   }
 
   // 跳转语音页面
-  _jumpToSpeak() {}
+  _jumpToSpeak() {
+    NavigatorUtil.push(context, SpeakPage());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +132,7 @@ class _HomePageState extends State<HomePage>
           child: Stack(
             children: <Widget>[
               MediaQuery.removePadding(
-                // 去除手机顶部的padding
+                  // 去除手机顶部的padding
                   removeTop: true,
                   context: context,
                   child: RefreshIndicator(
@@ -159,12 +162,12 @@ class _HomePageState extends State<HomePage>
         Container(
           // 装饰器
           decoration: BoxDecoration(
-            // 线性渐变
+              // 线性渐变
               gradient: LinearGradient(
-                colors: [Color(0x66000000), Colors.transparent],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
+            colors: [Color(0x66000000), Colors.transparent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
             height: 80,
@@ -201,11 +204,16 @@ class _HomePageState extends State<HomePage>
         itemCount: bannerList.length,
         autoplay: true, // 自动播放
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector( // 点击事件
+          return GestureDetector(
+            // 点击事件
             onTap: () {
-              NavigatorUtil.push(context, WebView(url: bannerList[index].url,
-                statusBarColor: bannerList[index].statusBarColor,
-                hideAppBar: bannerList[index].hideAppBar,));
+              NavigatorUtil.push(
+                  context,
+                  WebView(
+                    url: bannerList[index].url,
+                    statusBarColor: bannerList[index].statusBarColor,
+                    hideAppBar: bannerList[index].hideAppBar,
+                  ));
             },
             child: CachedImage(
               imageUrl: bannerList[index].icon,

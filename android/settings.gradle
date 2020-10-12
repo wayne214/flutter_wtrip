@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':asr_plugin'
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
@@ -14,7 +14,7 @@ plugins.each { name, path ->
     project(":$name").projectDir = pluginDirectory
 }
 
-setBinding(new Binding([gradle: this]))
+//setBinding(new Binding([gradle: this]))
 
 //evaluate(new File(
 //        settingsDir.parentFile,

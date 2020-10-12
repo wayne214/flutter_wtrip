@@ -9,31 +9,32 @@ const SEARCH_URL =
 
 class SearchDao {
   static Future<SearchModel> fetch(String text) async {
-//    Response response = await Dio().get(SEARCH_URL+text, options: Options(responseType: ResponseType.bytes));
-//    if (response.statusCode == 200) {
-////      Utf8Decoder utf8decoder = Utf8Decoder(); // fix 中文乱码
-////      var result = json.decode(utf8decoder.convert(response.bodyBytes));
-//      // 只有当当前输入的内容和服务器返回的内容一致时才渲染
-//      SearchModel model = SearchModel.fromJson(response.data);
-//      model.keyword = text;
-//      return model; // 转换成HomeModel
-//    } else {
-//      throw Exception('Failed to load search_page json');
-//    }
-
-
-
-
-    final response = await http.get(SEARCH_URL + text);
+    Response response = await Dio().get(SEARCH_URL+text);
+    print(response.toString());
     if (response.statusCode == 200) {
-      Utf8Decoder utf8decoder = Utf8Decoder(); // fix 中文乱码
-      var result = json.decode(utf8decoder.convert(response.bodyBytes));
+//      Utf8Decoder utf8decoder = Utf8Decoder(); // fix 中文乱码
+//      var result = json.decode(utf8decoder.convert(response.bodyBytes));
       // 只有当当前输入的内容和服务器返回的内容一致时才渲染
-      SearchModel model = SearchModel.fromJson(result);
+      SearchModel model = SearchModel.fromJson(response.data);
       model.keyword = text;
       return model; // 转换成HomeModel
     } else {
       throw Exception('Failed to load search_page json');
     }
+
+
+
+
+//    final response = await http.get(SEARCH_URL + text);
+//    if (response.statusCode == 200) {
+//      Utf8Decoder utf8decoder = Utf8Decoder(); // fix 中文乱码
+//      var result = json.decode(utf8decoder.convert(response.bodyBytes));
+//      // 只有当当前输入的内容和服务器返回的内容一致时才渲染
+//      SearchModel model = SearchModel.fromJson(result);
+//      model.keyword = text;
+//      return model; // 转换成HomeModel
+//    } else {
+//      throw Exception('Failed to load search_page json');
+//    }
   }
 }

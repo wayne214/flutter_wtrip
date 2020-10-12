@@ -64,7 +64,7 @@ class _SearchBarState extends State<SearchBar> {
                 child: widget?.hideLeft ?? false
                     ? null
                     : Icon(
-                        Icons.arrow_back_ios,
+                        Icons.arrow_back,
                         color: Colors.grey,
                         size: 26,
                       ),
